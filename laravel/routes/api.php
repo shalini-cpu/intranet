@@ -16,3 +16,23 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+/// Login & Register
+Route::group(['prefix'=>'v1'],function(){
+    Route::post('login', 'ApiAuthController@login');
+    Route::post('register', 'ApiAuthController@register');
+});
+
+
+/** ONLY FOR DEV **/
+header("Access-Control-Allow-Origin: *");
+/** ONLY FOR DEV **/
+
+Route::group(['middleware' => 'auth.jwt', 'prefix' => 'v1'], function ($router) {
+    Route::any('logout', 'ApiAuthController@logout');
+    Route::post('me', 'ApiAuthController@me');
+
+    // Users CRUD
+    Route::resource('/users', 'UserController');
+});
