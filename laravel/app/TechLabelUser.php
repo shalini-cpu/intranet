@@ -7,12 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class TechLabelUser extends Model
 {
     protected $fillable = [
-        "techlable_id", "user_id", "level", "status",
+        "tech_label_id", "user_id", "level", "status",
     ];
 
-}
+    public function tech_label()
+    {
+        return $this->belongsTo(Techlabel::class,'tech_label_id','id')->select(['id','name']);
+    }
 
-//$table->integare('techlable_id');
-//$table->integare('user_id');
-//$table->integare('level')->default(6);
-//$table->boolean('status')->default(1);
+    public function scopeTech_label_name($query)
+    {
+        return
+            $this->
+            join('tech_labels', 'tech_labels.id', '=', 'tech_label_users.tech_label_id')->
+            addSelect(['tech_labels.id', 'tech_labels.name']);
+    }
+
+}

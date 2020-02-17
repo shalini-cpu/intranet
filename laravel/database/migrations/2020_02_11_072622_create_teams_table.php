@@ -12,7 +12,7 @@ class CreateTeamsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('project_id');
-            $table->integer('techlabel_id');
+            $table->integer('tech_label_id');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

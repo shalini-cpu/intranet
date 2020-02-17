@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 /// Login & Register
-Route::group(['prefix'=>'v1'],function(){
+Route::group(['prefix' => 'v1'], function () {
     Route::post('login', 'ApiAuthController@login');
     Route::post('register', 'ApiAuthController@register');
 });
@@ -33,6 +33,11 @@ Route::group(['middleware' => 'auth.jwt', 'prefix' => 'v1'], function ($router) 
     Route::any('logout', 'ApiAuthController@logout');
     Route::post('me', 'ApiAuthController@me');
 
-    // Users CRUD
     Route::resource('/users', 'UserController');
+    Route::resource('/project', 'ProjectController');
+    Route::resource('/worksheet', 'WorksheetController');
+
+    Route::get('/search/users', 'UserController@serach');
+    Route::get('/project/{project_id}/worksheets', 'ProjectController@worksheets')->name('project.worksheets');
+    Route::post('/project/team/add', 'ProjectController@add_team_members')->name('project.team.add');
 });

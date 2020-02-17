@@ -13,7 +13,7 @@ class CreateTechlabelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('techlabels', function (Blueprint $table) {
+        Schema::create('tech_labels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->boolean('status')->default(1);
@@ -28,6 +28,6 @@ class CreateTechlabelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('techlabels');
+        Schema::dropIfExists('tech_labels');
     }
 }

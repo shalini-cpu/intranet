@@ -12,7 +12,14 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'designation', 'reporting_to', 'user_type', 'emp_id'
+        'name', 'email', 'password', 'role_id', 'designation', 'reporting_to', 'role_id', 'user_type',
+        'phone', 'mobile', 'emer_contact_no', 'emer_contact_name',
+        'designation',
+        'dob', 'doj', 'hire_date',
+        'emp_id', 'resignation_date',
+        'city', 'address', 'reporting_to', 'branch_id',
+        'profile_pic', 'resume_url', 'current_salary',
+        'bg',
     ];
 
     protected $hidden = [
@@ -22,6 +29,17 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tech_labels()
+    {
+        return $this->hasMany(TechLabelUser::class, 'user_id', 'id')
+            ->select([
+                'tech_label_users.id'
+                , 'tech_label_users.tech_label_id'
+                , 'tech_label_users.user_id'
+                , 'tech_label_users.level'
+            ]);
+    }
 
 
     /**
@@ -44,3 +62,4 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 }
+

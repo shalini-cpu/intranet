@@ -39,3 +39,16 @@ class CreateWorksheetsTable extends Migration
         Schema::dropIfExists('worksheets');
     }
 }
+
+
+
+//    title :
+//    desc :
+//    hours_spend :
+//    date :
+//    task_type :
+//    stack :
+//    user_id :
+//    project_id :
+//    priority :
+//    status :

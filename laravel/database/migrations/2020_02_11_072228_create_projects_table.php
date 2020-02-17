@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->date('delivered_on')->nullable();
             $table->integer('lead_by')->nullable();
             $table->integer('product_manager_id')->nullable();
-            $table->boolean('wip')->nullable();
+            $table->boolean('wip')->default(1);
             $table->integer('created_by')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
