@@ -2,6 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
+use App\Branch;
 use App\Role;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -32,7 +33,8 @@ $factory->define(User::class, function (Faker $faker) {
         , "bg" => $faker->randomElement(['AB+', 'A+', 'B+', 'O+'])
         , "profile_pic" => "img/default.jpg"
         , "resume_url" => "img/default.jpg"
-        , "branch_id" => $faker->randomElement(['Banglore', 'Kolkata', 'Gujarat'])
+//        , "branch_id" => $faker->randomElement(['Banglore', 'Kolkata', 'Gujarat'])
+        , "branch_id" => Branch::orderByRaw('RAND()')->first()->id
         , "current_salary" => $faker->numberBetween(4000, 40000)
         , "user_type" => $faker->randomElement([1, 2, 3, 4, 5])
         , "status" => $faker->randomElement([0, 1])

@@ -8,7 +8,6 @@ use App\Rules\isTeam_membor_exist_inProject;
 use App\Worksheet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
@@ -75,7 +74,7 @@ class ProjectController extends Controller
     {
         // ONLY ADMIN, MANAGER OR TEAM_MEMBOR
         try {
-            $project = Project::with('team')->find($id);
+            $project = Project::status()->with('team')->find($id);
             return $this->responseWithSuccess('Success', $project);
 
         } catch (Throwable $e) {
@@ -89,17 +88,7 @@ class ProjectController extends Controller
         // IF manager
         try {
             $validator = Validator::make($request->all(), [
-                "name" => "required|string|regex:/^[a-zA-Z0-9\s]*$/"
-                , 'title' => "required|regex:/^[a-zA-Z0-9\s\-]*$/"
-                , 'desc' => "required"
-                , 'url' => "string"
-                , 'dev_url' => "string"
-                , 'repo_url' => "string"
-                , 'delivered_on' => "required|date|date_format:Y-m-d"
-                , 'lead_by' => "required|integer|exists:users,id"
-                , 'product_manager_id' => "required|integer|exists:users,id"
-                , 'wip' => "integer"
-                , 'created_by' => "required|integer|exists:users,id"
+z
             ]);
 
             if ($validator->fails()) {
@@ -136,7 +125,7 @@ class ProjectController extends Controller
                 , 'team.*.tech_label_id' => [
                     "required", "exists:tech_labels,id",
                 ]
-
+                ,
             ]);
 
             if ($validator->fails()) {
@@ -146,7 +135,11 @@ class ProjectController extends Controller
             $project = $validated_rule->get_project();
             $project->team()->createMany($validated_rule->get_team_array());
 
-            return $this->responseWithSuccess('Team members added successfuly, into Project', [$project->team]);
+            return
+                $this->responseWithSuccess(
+                    "Team members added successfuly, into Project {$project->title}",
+                    [$project->team]
+                );
 
         } catch (Throwable $e) {
             info(["Line:" => $e->getLine(), "Message:" => $e->getMessage(), "Code:" => $e->getCode()]);

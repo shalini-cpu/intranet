@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('bg')->nullable();
             $table->text('profile_pic')->nullable();
             $table->text('resume_url')->nullable();
-            $table->string('branch_id')->nullable();
+            $table->string('branch_id')->nullable()->default(1);
             $table->integer('current_salary')->nullable();
             $table->string('user_type')->default('employee');
             $table->boolean('status')->default(1);

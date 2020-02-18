@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\JsonUtilTrait;
+use App\Techlabel;
+use App\TechLabelUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -85,7 +87,6 @@ class UserController extends Controller
         //
     }
 
-
     /// User Fulltext Search (Email,fName,Lname,mobile,email)
     public function serach(Request $request)
     {
@@ -95,7 +96,7 @@ class UserController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return $this->responseWithError("validation error", $validator->messages(), [request()->all()]);
+                return $this->responseWithError("validation error", $validator->messages());
             }
 
             $keywords = request('keywords');
@@ -115,6 +116,71 @@ class UserController extends Controller
 
                 if ($user_found) {
                     return $this->responseWithSuccess("Search results", $user_found);
+                }
+            }
+
+            return $this->responseWithError('input Error', $validator->messages());
+
+        } catch (QueryException $e) {
+            info(["Line:" => $e->getLine(), "Message:" => $e->getMessage(), "Code:" => $e->getCode()]);
+            return $this->responseWithError("Insertnal server error", [], 400, 400);
+        } catch (Throwable $e) {
+
+            $info_msg = ["Line:" => $e->getLine(), "Message:" => $e->getMessage(), "Code:" => $e->getCode()];
+            info($info_msg);
+
+            if (config('app.env') === 'local') {
+                return $this->responseWithError("Internal server error", $info_msg, 500, 500);
+            }
+            return $this->responseWithError("Internal server error", [], 500, 500);
+        }
+
+//        $user_found = User::
+//        whereRAW("MATCH(name,description) AGAINST(? IN BOOLEAN MODE)", array($search))
+//            ->orWhereRAW('id IN (SELECT project_id FROM roles JOIN users ON user.id = roles.user_id WHERE MATCH(username, first_name, last_name) AGAINST(? IN BOOLEAN MODE))', array($search));
+//        ->
+//        orWhereRaw('');
+    }
+
+    /// User Fulltext Search (Email,fName,Lname,mobile,email)
+    public function serach_tech_lables(Request $request)
+    {
+        try {
+            $validator = Validator::make(request()->all(), [
+                "keywords" => "required|string|max:255"
+            ]);
+
+            if ($validator->fails()) {
+                return $this->responseWithError("validation error", $validator->messages());
+            }
+
+            $keywords = request('keywords');
+            $data = [];
+
+            if ($keywords) {
+                // Search DB
+                $query =
+                $data['data'] =
+                    Techlabel::
+//                    whereRaw( // TODO:SEARCH for users From Tech
+//                        "MATCH (tech_labels.name) AGAINST (? IN BOOLEAN MODE)",
+//                        $this->fullTextWildcards($keywords)
+//                    )->
+                    orWhere('tech_labels.name', 'LIKE', "%{$keywords}%")->
+                    join('tech_label_users', 'tech_label_users.tech_label_id', '=', 'tech_labels.id')->
+                    join('users', 'users.id', '=', 'tech_label_users.user_id')->
+                    addSelect([
+                        'users.id as user_id', 'users.name',
+                        'tech_label_users.id as tech_label_id', 'tech_labels.name as tech',
+                    ])->
+                    get();
+
+                $query = collect($query->toArray());
+                $data['user_names'] = $query->pluck('name')->unique();
+                $data['tech_labels'] = $query->pluck('tech')->unique();
+
+                if ($query) {
+                    return $this->responseWithSuccess("Search results", [$data]);
                 }
             }
 

@@ -20,7 +20,7 @@ class Worksheet extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id')
-            ->select(['users.id', 'users.name', 'users.email', 'users.role_id', 'users.reporting_to']);
+            ->select(['users.id', 'users.name', 'users.email', 'users.mobile', 'users.role_id', 'users.reporting_to']);
     }
 
 }

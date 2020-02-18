@@ -30,7 +30,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function tech_labels()
+    public function tech_label_users()
     {
         return $this->hasMany(TechLabelUser::class, 'user_id', 'id')
             ->select([
@@ -39,6 +39,12 @@ class User extends Authenticatable implements JWTSubject
                 , 'tech_label_users.user_id'
                 , 'tech_label_users.level'
             ]);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id')
+            ->select(['branches.id', 'branches.location', 'branches.city', 'branches.address', 'branches.mobile']);
     }
 
 

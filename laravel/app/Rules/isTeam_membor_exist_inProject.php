@@ -37,11 +37,10 @@ class isTeam_membor_exist_inProject implements Rule
             ])->exists();
 
             $found_user = User::select('id', 'name')->find($member['user_id']);
-
             if ($found_row) {
-                return $this->fail("User: '{$found_user->name}' already exists in team");
+                return $this->fail("User: '{$found_user->name}' already exists in project: {$this->project->title}, team");
             }
-            
+
         }
 
         return true;

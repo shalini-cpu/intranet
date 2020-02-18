@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Scopes\StatusScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -28,6 +29,16 @@ class Project extends Model
 //        return $query->where('school_id', 2);
 //    }
 
+//    protected static function boot()
+//    {
+//        parent::boot();
+//        static::addGlobalScope(new StatusScope());
+//    }
+
+    public function scopeStatus($query, $status = 1)
+    {
+        return $query->whereStatus($status);
+    }
 
     public function team()
     {

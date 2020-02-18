@@ -1,0 +1,703 @@
+{
+	"info": {
+		"_postman_id": "a6c6be74-1fc0-420f-9257-1242f9ab319a",
+		"name": "intranet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "GetUsers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{api}}users",
+							"host": [
+								"{{api}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Fulltext  search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{api}}search/users?keywords=Rahul",
+							"host": [
+								"{{api}}search"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "keywords",
+									"value": "Rahul"
+								},
+								{
+									"key": "keywords",
+									"value": "PAR",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt}}",
+						"type": "string"
+					}
+				]
+			},
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "project",
+			"item": [
+				{
+					"name": "Insert Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "The Start In Me",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "TSIM",
+									"type": "text"
+								},
+								{
+									"key": "desc",
+									"value": "hell there how are you ",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "live-project-url.com",
+									"type": "text"
+								},
+								{
+									"key": "dev_url",
+									"value": "dev-url.com",
+									"type": "text"
+								},
+								{
+									"key": "repo_url",
+									"value": "repo-url.com",
+									"type": "text"
+								},
+								{
+									"key": "delivered_on",
+									"value": "2019-12-23",
+									"type": "text"
+								},
+								{
+									"key": "lead_by",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "product_manager_id",
+									"value": "13",
+									"type": "text"
+								},
+								{
+									"key": "created_by",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "team[0][user_id]",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "team[0][tech_label_id]",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "team[1][user_id]",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "team[1][tech_label_id]",
+									"value": "3",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}project",
+							"host": [
+								"{{api}}project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Project Team Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "team[0][user_id]",
+									"value": "41",
+									"type": "text"
+								},
+								{
+									"key": "team[0][tech_label_id]",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "team[1][user_id]",
+									"value": "11",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "team[1][tech_label_id]",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}project/team/add?",
+							"host": [
+								"{{api}}project"
+							],
+							"path": [
+								"team",
+								"add"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "17297",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}project/6",
+							"host": [
+								"{{api}}project"
+							],
+							"path": [
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Projects",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}project",
+							"host": [
+								"{{api}}project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Worksheet by Project id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}project/3/worksheets?",
+							"host": [
+								"{{api}}project"
+							],
+							"path": [
+								"3",
+								"worksheets"
+							],
+							"query": [
+								{
+									"key": "worksheet_id",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "1.Project created by Manager,Admin\n\n2.employee/user can view project, if he/she is one of team membor of this project \nother wise only manager/Admin can view\n\n3.project worksheet can retrive by only managers | project_lead | reporting manager or by emp self",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5d03c157-a828-4c44-a9a8-11eb2c15d2d2",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "526b7dc3-5200-4839-b11f-c8407cdc0040",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "worksheet",
+			"item": [
+				{
+					"name": "WorkSheet Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Add New User fulltext search",
+									"type": "text"
+								},
+								{
+									"key": "desc",
+									"value": "manger can search emp by name and tech labels ",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "hours_spend",
+									"value": "5.3",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2020-02-17",
+									"type": "text"
+								},
+								{
+									"key": "task_type",
+									"value": "bug",
+									"type": "text"
+								},
+								{
+									"key": "stack",
+									"value": "laravel",
+									"type": "text"
+								},
+								{
+									"key": "project_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "priority",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "user_id",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api}}worksheet",
+							"host": [
+								"{{api}}worksheet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get workSheets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}worksheet/?",
+							"host": [
+								"{{api}}worksheet"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "worksheet_id",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "1. User/Emp add working hours and work details in worksheet \n2. project_manager, manager, or reporting manager can review worksheet and give appropriate feedback on worksheet\n3. ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a288b78c-5d97-4f40-a94f-b6cc0fdd869f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9cc676b-9b6a-43ba-8021-a9f464b30de5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f7ce498-1c0c-4368-95b9-a2a47439b4af",
+						"exec": [
+							"const res = pm.response.json();",
+							"let new_jwt = res.results.token;",
+							"pm.environment.set(\"jwt\", new_jwt);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Dipen Parmar",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "xelp8@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "emp_id",
+							"value": "Xelp-A8",
+							"type": "text"
+						},
+						{
+							"key": "user_type",
+							"value": "Employee/Intern",
+							"type": "text"
+						},
+						{
+							"key": "role_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "designation",
+							"value": "Branch Manager",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api}}register",
+					"host": [
+						"{{api}}register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b577bf9-b36b-4600-9870-d12061793b7b",
+						"exec": [
+							"const res = pm.response.json();",
+							"let new_jwt = res.results.token;",
+							"pm.environment.set(\"jwt\", new_jwt);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "xelp8@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api}}login",
+					"host": [
+						"{{api}}login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Me",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{api}}me",
+					"host": [
+						"{{api}}me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{jwt}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bef63902-906e-472e-ab49-9c2b7c8942e9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9a2c13bc-9085-4b73-9ae8-130b4e803ad3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
